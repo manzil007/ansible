@@ -1,0 +1,8 @@
+---
+- hosts: tms
+  become: yes
+  gather_facts: true
+  environment:
+    PATH: '{{ ansible_env.PATH }}:{{ ansible_env.PWD }}'
+  roles:
+    - ansible-logrotate-syslog

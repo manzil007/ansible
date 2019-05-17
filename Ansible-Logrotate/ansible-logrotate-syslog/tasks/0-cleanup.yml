@@ -1,0 +1,5 @@
+---
+- name: Remove obsolete message logrotate config file
+  file:
+    path: /etc/logrotate.d/messages.conf
+    state: absent

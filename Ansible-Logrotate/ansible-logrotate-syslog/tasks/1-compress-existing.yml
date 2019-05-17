@@ -1,0 +1,20 @@
+---
+- name: Check the current disk utilization and files
+  shell: 'df -Th /var/log; ls -alh /var/log/messages-* /var/log/cron-* /var/log/maillog-* /var/log/secure-* /var/log/spooler-*'
+  register: optional_file
+  failed_when: False
+
+- include: var/log/messages-* /var/log/cron-* /var/log/maillog-* /var/log/secure-* /var/log/spooler-*
+  when: optional_file.rc == 0
+
+- debug: msg="/var/log/.. did not exist and was not included"
+  when : optional_file.rc != 0
+
+- name: List the Existing files
+  shell: 'for i in $(ls /var/log/messages-* /var/log/cron-* /var/log/maillog-* /var/log/secure-* /var/log/spooler-* | grep -v .xz); do echo $i; ls -alh $i; done'
+
+- name: Compress the log files 
+  shell: 'for i in $(ls /var/log/messages-* /var/log/cron-* /var/log/maillog-* /var/log/secure-* /var/log/spooler-* | grep -v .xz); do echo $i; sudo xz $i; done'
+
+- name: Check the current disk utilization and files
+  shell: 'df -Th /var/log; ls -alh /var/log/messages-* /var/log/cron-* /var/log/maillog-* /var/log/secure-* /var/log/spooler-*'

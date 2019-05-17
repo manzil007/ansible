@@ -1,0 +1,12 @@
+---
+- name: create logrotate per day
+  template:
+   src: logrotated.syslog.j2
+   dest: /etc/logrotate.d/syslog
+   owner: root
+   group: root
+   mode: 0644
+   backup: yes
+
+- name: "Execute force logrotate of syslog which auto restarts rsyslog - HR"
+  shell: 'logrotate -f /etc/logrotate.d/syslog'

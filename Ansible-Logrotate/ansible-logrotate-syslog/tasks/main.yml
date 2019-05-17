@@ -1,0 +1,42 @@
+---
+- name: New Updated info
+  debug:
+    var: ohai_sysconf.AIO_LISTIO_MAX
+
+- name: Check the hostname
+  debug:
+    msg: ansible_hostname
+    verbosity: 0
+
+- name: Check the hostname verbosity 1 enabled during execution else is skipped
+  debug:
+    msg: "{{ansible_hostname}}"
+    verbosity: 1
+
+- name: Check the hostname verbosity 2 enabled during execution else is skipped
+  debug:
+    msg: "{{ansible_hostname}}"
+    verbosity: 2
+
+- name: Check the hostname verbosity 3 enabled during execution else is skipped
+  debug:
+    msg: "{{ansible_hostname}}"
+    verbosity: 3
+
+- name: Check the hostname verbosity 4 enabled during execution else is skipped
+  debug:
+    msg: "{{ansible_hostname}}"
+    verbosity: 4
+
+- name: Check the hostname verbosity 5 enabled during execution else is skipped
+  debug:
+    msg: "{{ansible_hostname}}"
+    verbosity: 5
+
+- name: Check the hostname values using var which does not require the quotes or the curly brackets
+  debug:
+    var: ansible_hostname
+
+- include: 0-cleanup.yml
+- include: 1-compress-existing.yml
+- include: 2-logrotated-syslog.yml
